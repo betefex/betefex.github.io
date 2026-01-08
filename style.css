@@ -1,0 +1,167 @@
+body { 
+    margin:0;
+    position:relative;
+    background: white;
+    font-family: Palatino, "Palatino LT STD", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    font-size: 12pt;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.contents-border {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.contents {
+    background: white;
+    min-height: 100vh;
+    max-width: 800px;
+    margin: auto;
+}
+
+.contents * img {
+    width: 50%;
+    float: left;
+    margin: 10px 10px 10px 10px;
+}
+
+img[src*="architecture.svg"] {
+    width: 30%;
+}
+
+img[src*="eco.svg"] {
+    float: right;
+    width: 50%;
+    margin-right: -10px;
+}
+
+img[src*="stocks."] {
+    float: right;
+    max-width: 130px;
+    height: auto;
+    margin: 0 0 0 0;
+    margin-left: 10px;
+}
+
+.contents * em {
+    text-decoration: underline;
+    text-decoration-color: #EACF4C;
+    text-decoration-thickness: 2pt;
+}
+
+.contents * h1 {
+    background: #EACF4C;
+    text-align: center;
+    padding-bottom: 2px;
+}
+
+.contents * h2 {
+    background: #EACF4C;
+    padding-left: 5px;
+    padding-bottom: 2px;
+}
+
+footer {
+    background:black;
+    position: fixed; bottom: 0; left: 0; right: 0; height: 50px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+footer * a {
+    text-decoration: none;
+    color: #EACF4C
+}
+
+.footer-logo-text {
+    margin-left: 3pt;
+    margin-top: 2pt;
+    z-index: 1;
+}
+
+.footer-info-text {
+    color: white;
+    text-align: right;
+    vertical-align: bottom;
+    margin-right: 2pt;
+    font-size: 9pt;
+    overflow: visible;
+}
+
+a, a:link, a:visited {
+    color: #EACF4C
+}
+
+@media screen and (max-width: 550px) {
+    footer {
+        position: fixed; bottom: 0; left: 0; right: 0; height: 32px;
+    }
+    .footer-logo-text {
+        margin-left: 3pt;
+        margin-top: 1pt;
+        transform: scale(0.6);
+        transform-origin: top left;
+    }    
+    .footer-info-text {
+        font-size: 6pt;
+        margin-bottom: -.5pt;
+        margin-top: 0pt;
+    }
+    img[src*="stocks."] {
+        max-width: 200px;
+    }
+    img[src*="eco.svg"] {
+        width: 60%;
+        margin-right: -10px;
+    }
+    img[src*="architecture.svg"] {
+        width: 40%;
+    }    
+}
+
+/*
+@media screen and (max-width: 350px) {
+    footer {
+        position: fixed; bottom: 0; left: 0; right: 0; height: 24px;
+    }
+    .footer-logo-text {
+        margin-left: 3pt;
+        margin-top: 1pt;
+        transform: scale(0.5);
+        transform-origin: top left;
+    }    
+    .footer-info-text {
+        font-size: 4.5pt;
+        margin-bottom: -.5pt;
+        margin-top: 0pt;
+    }
+}
+*/
+
+table {
+    margin: auto;
+    border-spacing: 5px;
+}
+
+th {
+    border-bottom: 1px solid black;
+}
+
+td {
+    border-left: 4px solid #EACF4C;
+    padding-left: 5px;
+    padding-top: 1px;
+    padding-bottom: 3px;
+    padding-right: 30px;
+    font-weight: bold;
+}
+
+.highlighted {
+    background: #F9F1CC;
+}
+
+.menub {
+    cursor: pointer;
+}

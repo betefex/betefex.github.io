@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js" integrity="sha256-AudxfNCSMlQsCO3X+cJKHBXanO9is9nhhteObFwmqOw=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="contents">
+            <canvas id="canvas1"></canvas>
+            <div style="min-height: 50px"></div>
+        </div>
+        <footer>
+            <div class="footer-logo-text" style="overflow:hidden">
+                <a href="https://betefex.se">
+                    <span style="color: #EACF4C">Be</span><span style="color: white">Tefex</span>
+                </a>
+            </div>
+            <div>
+                <div class="footer-info-text">For all inquiries email: <a href="mailto:mbe@betefex.se">mbe@betefex.se</a></div>
+                <div class="footer-info-text">BeTefex AB, org.nr. 559215-8975, Ume&aring; kommun</div>
+                <div class="footer-info-text">All material (unless indicated) &copy; BeTefex AB, 2021</div>
+            </div>
+        </footer>
+    </body>
+    <script>
+        /* True while some rendering pass is happening */
+        var rendering=false
+        /* True while a queued render timing is live */
+        var queued=false
+        /* If we have previously rendered this is the resolution we went
+           for. */
+        var last_width=-1
+
+        /* The function called by rendering timers */
+        render_queued=function() {
+            queued=false
+            render()
+        }
+        /* Forced rerender (e.g.) PDF changed */
+        render_force=function() {
+            last_width=-1
+            render()
+        }
+        /* Rerender PDF */
+        render=function() {
+            if(rendering) {
+                if(!queued) {
+                    queued=true
+                    setTimeout(render_queued,50)
+                }
+                return
+            }
+            rendering=true
+            var loadingTask = pdfjsLib.getDocument('betefex_specification_pitch.pdf');
+            loadingTask.promise.then(function(pdf) {
+                pdf.getPage(1).then(function(page) {
+                    var canvas = document.getElementById('canvas1');
+                    var context = canvas.getContext('2d');
+                    var scale = window.devicePixelRatio
+                    w=canvas.getBoundingClientRect().width
+                    if(w!=last_width) {
+                        last_width=w
+                        canvas.width=Math.round(w*scale)
+                        context.scale(scale,scale)
+                        var viewport = page.getViewport({scale: canvas.width / page.getViewport({scale: 1.0}).width});
+                        canvas.height = viewport.height;
+
+                        var renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        page.render(renderContext);
+                    }
+                    rendering=false
+                });
+            });
+        }
+        $(window).on('load',render);
+        $(window).on('resize',render);
+    </script>
+</html>
